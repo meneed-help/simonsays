@@ -19,27 +19,28 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module lfsr_random(
     input clk,
     input reset,
-    input enable,        // used to make the randomness less predictable
-    output reg [1:0] rand_out
+    input enable,
+    output reg [3:0] rand_out   // 0-8 for 9 LEDs
 );
 
-// 4-bit LFSR register
 reg [3:0] lfsr;
 
 always @(posedge clk) begin
     if (reset) begin
-        lfsr <= 4'b0001;   // seed the 0th pattern generation is always at lsb
-        rand_out <= 2'b00;
+        lfsr <= 4'b0001;
+        rand_out <= 4'b0000;
     end else if (enable) begin
-        // XOR taps: bit 3 and bit 2
+        // 4-bit LFSR
         lfsr <= {lfsr[2:0], lfsr[3] ^ lfsr[2]};
 
-        // take lower 2 bits as output
-        rand_out <= lfsr[1:0];
+        // Ensure output is 0-8
+        if (lfsr > 4'd8)
+            rand_out <= lfsr % 9; 
+        else
+            rand_out <= lfsr;
     end
 end
 

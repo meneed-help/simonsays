@@ -8,7 +8,6 @@ set_property PACKAGE_PIN U18 [get_ports reset]
 set_property IOSTANDARD LVCMOS33 [get_ports reset]
 
 ## ================= TOUCH INPUTS =================
-## (connected to your TTP223-B sensors)
 
 set_property PACKAGE_PIN J1 [get_ports {touch[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {touch[0]}]
@@ -21,6 +20,21 @@ set_property IOSTANDARD LVCMOS33 [get_ports {touch[2]}]
 
 set_property PACKAGE_PIN J2 [get_ports {touch[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {touch[3]}]
+
+set_property PACKAGE_PIN A14 [get_ports {touch[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {touch[4]}]
+
+set_property PACKAGE_PIN A16 [get_ports {touch[5]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {touch[5]}]
+
+set_property PACKAGE_PIN B15 [get_ports {touch[6]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {touch[6]}]
+
+set_property PACKAGE_PIN B16 [get_ports {touch[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {touch[7]}]
+
+set_property PACKAGE_PIN K17 [get_ports {touch[8]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {touch[8]}]
 
 ## ================= LED OUTPUTS =================
 
@@ -35,3 +49,18 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[2]}]
 
 set_property PACKAGE_PIN G2 [get_ports {led[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[3]}]
+
+set_property PACKAGE_PIN A15 [get_ports {led[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led[4]}]
+
+set_property PACKAGE_PIN A17 [get_ports {led[5]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led[5]}]
+
+set_property PACKAGE_PIN C15 [get_ports {led[6]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led[6]}]
+
+set_property PACKAGE_PIN C16 [get_ports {led[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led[7]}]
+
+set_property PACKAGE_PIN L17 [get_ports {led[8]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led[8]}]

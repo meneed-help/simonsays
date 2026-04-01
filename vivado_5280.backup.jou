@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Thu Mar 26 10:49:33 2026
+# Process ID: 5280
+# Current directory: C:/Users/TTKT/Downloads/DLD_project/DLD_project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent11920 C:\Users\TTKT\Downloads\DLD_project\DLD_project\DLD_project.xpr
+# Log file: C:/Users/TTKT/Downloads/DLD_project/DLD_project/vivado.log
+# Journal file: C:/Users/TTKT/Downloads/DLD_project/DLD_project\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.xpr
+update_compile_order -fileset sources_1

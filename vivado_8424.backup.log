@@ -1,0 +1,32 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Thu Mar 26 08:52:18 2026
+# Process ID: 8424
+# Current directory: C:/Users/TTKT/Downloads/DLD_project/DLD_project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent8936 C:\Users\TTKT\Downloads\DLD_project\DLD_project\DLD_project.xpr
+# Log file: C:/Users/TTKT/Downloads/DLD_project/DLD_project/vivado.log
+# Journal file: C:/Users/TTKT/Downloads/DLD_project/DLD_project\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.1/data/ip'.
+open_project: Time (s): cpu = 00:00:39 ; elapsed = 00:00:16 . Memory (MB): peak = 1016.105 ; gain = 0.000
+update_compile_order -fileset sources_1
+ereset_run synth_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 26 09:58:37 2026...
+errupt caught. Command should exit soon.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1025.488 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 19 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.1
+open_run: Time (s): cpu = 00:00:28 ; elapsed = 00:00:52 . Memory (MB): peak = 1025.488 ; gain = 18.867
+INFO: [Common 17-344] 'open_run' was cancelled
+exit
+INFO: [Common 17-206] Exiting Vivado at Thu Mar 26 09:56:37 2026...

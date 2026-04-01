@@ -19,25 +19,21 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module pattern_controller(
     input clk,
     input reset,
-    input start,                 // start displaying pattern
-    input tick,                  // slow timing signal
-    input [3:0] length,          // pattern length from memory
-    input [1:0] mem_value,       // value read from memory
+    input start,
+    input tick,
+    input [4:0] length,        // match pattern_memory
+    input [3:0] mem_value,     // 0-8
 
-    output reg [3:0] read_index, // index to read from memory
-    output reg [3:0] led,        // LED output
-    output reg done              // finished displaying pattern
+    output reg [4:0] read_index,
+    output reg [8:0] led,      // 9 LEDs
+    output reg done
 );
 
 reg [3:0] state;
-parameter IDLE  = 0,
-          SHOW  = 1,
-          WAIT  = 2,
-          NEXT  = 3;
+parameter IDLE=0, SHOW=1, WAIT=2, NEXT=3;
 
 always @(posedge clk) begin
     if (reset) begin
@@ -46,47 +42,44 @@ always @(posedge clk) begin
         led <= 0;
         done <= 0;
     end else begin
-
         case (state)
-
-        IDLE: begin
-            led <= 0;
-            done <= 0;
-            read_index <= 0;
-
-            if (start)
-                state <= SHOW;
-        end
-
-        SHOW: begin
-            // Display current pattern value on LEDs
-            case (mem_value)
-                2'd0: led <= 4'b0001;
-                2'd1: led <= 4'b0010;
-                2'd2: led <= 4'b0100;
-                2'd3: led <= 4'b1000;
-            endcase
-
-            state <= WAIT;
-        end
-
-        WAIT: begin
-            // Wait for slow tick before moving to next
-            if (tick) begin
-                state <= NEXT;
+            IDLE: begin
+                led <= 0;
+                done <= 0;
+                read_index <= 0;
+                if (start) state <= SHOW;
             end
-        end
 
-        NEXT: begin
-            if (read_index < length - 1) begin
-                read_index <= read_index + 1;
-                state <= SHOW;
-            end else begin
-                done <= 1;
-                state <= IDLE;
+            SHOW: begin
+                // Map memory value to 9 LEDs
+                case(mem_value)
+                    4'd0: led <= 9'b000000001;
+                    4'd1: led <= 9'b000000010;
+                    4'd2: led <= 9'b000000100;
+                    4'd3: led <= 9'b000001000;
+                    4'd4: led <= 9'b000010000;
+                    4'd5: led <= 9'b000100000;
+                    4'd6: led <= 9'b001000000;
+                    4'd7: led <= 9'b010000000;
+                    4'd8: led <= 9'b100000000;
+                    default: led <= 0;
+                endcase
+                state <= WAIT;
             end
-        end
 
+            WAIT: begin
+                if (tick) state <= NEXT;
+            end
+
+            NEXT: begin
+                if (read_index < length - 1) begin
+                    read_index <= read_index + 1;
+                    state <= SHOW;
+                end else begin
+                    done <= 1;
+                    state <= IDLE;
+                end
+            end
         endcase
     end
 end
