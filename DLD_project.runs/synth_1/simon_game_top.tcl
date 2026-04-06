@@ -89,6 +89,7 @@ OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
   C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/sources_1/new/clock_divider.v
   C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/sources_1/new/debouncer.v
+  C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/sources_1/new/game_timer.v
   C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/sources_1/new/lfsr_random.v
   C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/sources_1/new/pattern_controller.v
   C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/sources_1/new/pattern_memory.v

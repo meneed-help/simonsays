@@ -21,32 +21,28 @@
 
 module debouncer (
     input clk,
-    input btn_in,        
-    output reg btn_pulse, // Clean ONE-CLOCK pulse for logic
-    output reg btn_level  // High as long as button is held (for LEDs)
+    input btn_in,
+    output reg btn_level, // The "Is it held down?" signal
+    output reg btn_pulse  // The "Did it just get pressed?" signal
 );
 
-reg [19:0] count = 0;   
-reg state = 0;
-reg stable = 0;
+reg [21:0] count;
+reg state;
+reg state_prev;
 
 always @(posedge clk) begin
-    if (btn_in == state) begin
-        count <= 0;  
-    end else begin
+    if (btn_in != state) begin
         count <= count + 1;
-
-        if (count == 20'd1_000_000) begin
-            state <= btn_in;  
+        if (count == 22'd2_000_000) begin
+            state <= btn_in;
             count <= 0;
         end
+    end else begin
+        count <= 0;
     end
-end
 
-// Logic for the two different outputs
-always @(posedge clk) begin
-    btn_level <= state;              // Follows the stable state (LED stays on)
-    btn_pulse <= (state & ~stable);  // Fires once (Logic triggers once)
-    stable <= state;
+    state_prev <= state;
+    btn_level <= state;
+    btn_pulse <= state & ~state_prev; // Creates that 1-clock-cycle pulse
 end
 endmodule

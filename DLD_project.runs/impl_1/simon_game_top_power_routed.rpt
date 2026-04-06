@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date             : Wed Apr  1 17:57:47 2026
+| Date             : Mon Apr  6 16:47:30 2026
 | Host             : DESKTOP-GKB5T97 running 64-bit major release  (build 9200)
 | Command          : report_power -file simon_game_top_power_routed.rpt -pb simon_game_top_power_summary_routed.pb -rpx simon_game_top_power_routed.rpx
 | Design           : simon_game_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.089        |
+| Total On-Chip Power (W)  | 0.081        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.017        |
+| Dynamic (W)              | 0.010        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 5.0          |
 | Max Ambient (C)          | 84.6         |
@@ -53,16 +53,16 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.003 |        3 |       --- |             --- |
-| Slice Logic    |     0.002 |      906 |       --- |             --- |
-|   LUT as Logic |     0.001 |      322 |     20800 |            1.55 |
-|   CARRY4       |    <0.001 |       60 |      8150 |            0.74 |
-|   Register     |    <0.001 |      354 |     41600 |            0.85 |
+| Slice Logic    |     0.002 |     1035 |       --- |             --- |
+|   LUT as Logic |     0.001 |      365 |     20800 |            1.75 |
+|   CARRY4       |    <0.001 |       77 |      8150 |            0.94 |
+|   Register     |    <0.001 |      407 |     41600 |            0.98 |
 |   F7/F8 Muxes  |    <0.001 |       12 |     32600 |            0.04 |
-|   Others       |     0.000 |       25 |       --- |             --- |
-| Signals        |     0.002 |      760 |       --- |             --- |
-| I/O            |     0.011 |       20 |       106 |           18.87 |
+|   Others       |     0.000 |       27 |       --- |             --- |
+| Signals        |     0.002 |      874 |       --- |             --- |
+| I/O            |     0.003 |       20 |       106 |           18.87 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.089 |          |           |                 |
+| Total          |     0.081 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -74,7 +74,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Vccint    |       1.000 |     0.016 |       0.006 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.004 |       0.003 |      0.001 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -141,7 +141,7 @@ Table of Contents
 +----------------+-----------+
 | Name           | Power (W) |
 +----------------+-----------+
-| simon_game_top |     0.017 |
+| simon_game_top |     0.010 |
 |   mem          |     0.001 |
 +----------------+-----------+
 
