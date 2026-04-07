@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Mon Apr  6 16:18:29 2026
-# Process ID: 13320
+# Start of session at: Mon Apr  6 22:01:02 2026
+# Process ID: 3168
 # Current directory: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.runs/impl_1
 # Command line: vivado.exe -log simon_game_top.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source simon_game_top.tcl -notrace
 # Log file: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.runs/impl_1/simon_game_top.vdi

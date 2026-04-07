@@ -64,3 +64,45 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[7]}]
 
 set_property PACKAGE_PIN L17 [get_ports {led[8]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[8]}]
+
+#a
+set_property PACKAGE_PIN W7 [get_ports {seg[0]}]  
+set_property IOSTANDARD LVCMOS33 [get_ports {seg[0]}]
+
+#b
+set_property PACKAGE_PIN W6 [get_ports {seg[1]}]  
+set_property IOSTANDARD LVCMOS33 [get_ports {seg[1]}]
+
+#c
+set_property PACKAGE_PIN U8 [get_ports {seg[2]}]  
+set_property IOSTANDARD LVCMOS33 [get_ports {seg[2]}]
+
+#d
+set_property PACKAGE_PIN V8 [get_ports {seg[3]}]  
+set_property IOSTANDARD LVCMOS33 [get_ports {seg[3]}]
+
+#e
+set_property PACKAGE_PIN U5 [get_ports {seg[4]}]  
+set_property IOSTANDARD LVCMOS33 [get_ports {seg[4]}]
+
+#f
+set_property PACKAGE_PIN V5 [get_ports {seg[5]}]  
+set_property IOSTANDARD LVCMOS33 [get_ports {seg[5]}]
+
+#g
+set_property PACKAGE_PIN U7 [get_ports {seg[6]}]  
+set_property IOSTANDARD LVCMOS33 [get_ports {seg[6]}]
+
+
+
+set_property PACKAGE_PIN U2 [get_ports {anode[0]}] 
+set_property IOSTANDARD LVCMOS33 [get_ports {anode[0]}]
+
+set_property PACKAGE_PIN U4 [get_ports {anode[1]}] 
+set_property IOSTANDARD LVCMOS33 [get_ports {anode[1]}]
+
+set_property PACKAGE_PIN V4 [get_ports {anode[2]}] 
+set_property IOSTANDARD LVCMOS33 [get_ports {anode[2]}]
+
+set_property PACKAGE_PIN W4 [get_ports {anode[3]}] 
+set_property IOSTANDARD LVCMOS33 [get_ports {anode[3]}]

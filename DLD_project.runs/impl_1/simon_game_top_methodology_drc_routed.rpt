@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date         : Mon Apr  6 16:47:30 2026
+| Date         : Mon Apr  6 22:02:31 2026
 | Host         : DESKTOP-GKB5T97 running 64-bit major release  (build 9200)
 | Command      : report_methodology -file simon_game_top_methodology_drc_routed.rpt -pb simon_game_top_methodology_drc_routed.pb -rpx simon_game_top_methodology_drc_routed.rpx
 | Design       : simon_game_top
@@ -23,13 +23,12 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 25
-+-----------+----------+------------------------------------------------------+------------+
-| Rule      | Severity | Description                                          | Violations |
-+-----------+----------+------------------------------------------------------+------------+
-| TIMING-18 | Warning  | Missing input or output delay                        | 19         |
-| XDCC-4    | Warning  | User Clock constraint overwritten with the same name | 6          |
-+-----------+----------+------------------------------------------------------+------------+
+             Violations found: 30
++-----------+----------+-------------------------------+------------+
+| Rule      | Severity | Description                   | Violations |
++-----------+----------+-------------------------------+------------+
+| TIMING-18 | Warning  | Missing input or output delay | 30         |
++-----------+----------+-------------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
@@ -85,89 +84,102 @@ Related violations: <none>
 
 TIMING-18#11 Warning
 Missing input or output delay  
-An output delay is missing on led[0] relative to clock(s) sys_clk_pin
+An output delay is missing on anode[0] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#12 Warning
 Missing input or output delay  
-An output delay is missing on led[1] relative to clock(s) sys_clk_pin
+An output delay is missing on anode[1] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#13 Warning
 Missing input or output delay  
-An output delay is missing on led[2] relative to clock(s) sys_clk_pin
+An output delay is missing on anode[2] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#14 Warning
 Missing input or output delay  
-An output delay is missing on led[3] relative to clock(s) sys_clk_pin
+An output delay is missing on anode[3] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#15 Warning
 Missing input or output delay  
-An output delay is missing on led[4] relative to clock(s) sys_clk_pin
+An output delay is missing on led[0] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#16 Warning
 Missing input or output delay  
-An output delay is missing on led[5] relative to clock(s) sys_clk_pin
+An output delay is missing on led[1] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#17 Warning
 Missing input or output delay  
-An output delay is missing on led[6] relative to clock(s) sys_clk_pin
+An output delay is missing on led[2] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#18 Warning
 Missing input or output delay  
-An output delay is missing on led[7] relative to clock(s) sys_clk_pin
+An output delay is missing on led[3] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 TIMING-18#19 Warning
 Missing input or output delay  
+An output delay is missing on led[4] relative to clock(s) sys_clk_pin
+Related violations: <none>
+
+TIMING-18#20 Warning
+Missing input or output delay  
+An output delay is missing on led[5] relative to clock(s) sys_clk_pin
+Related violations: <none>
+
+TIMING-18#21 Warning
+Missing input or output delay  
+An output delay is missing on led[6] relative to clock(s) sys_clk_pin
+Related violations: <none>
+
+TIMING-18#22 Warning
+Missing input or output delay  
+An output delay is missing on led[7] relative to clock(s) sys_clk_pin
+Related violations: <none>
+
+TIMING-18#23 Warning
+Missing input or output delay  
 An output delay is missing on led[8] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
-XDCC-4#1 Warning
-User Clock constraint overwritten with the same name  
-A new clock constraint create_clock overrides a previous user clock constraint with the same name.
-New: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/four_sensor_test.xdc (Line: 4))
-Previous: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/touch_test_top.xdc (Line: 4))
+TIMING-18#24 Warning
+Missing input or output delay  
+An output delay is missing on seg[0] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
-XDCC-4#2 Warning
-User Clock constraint overwritten with the same name  
-A new clock constraint create_clock overrides a previous user clock constraint with the same name.
-New: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/lfsr_test_top.xdc (Line: 4))
-Previous: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/four_sensor_test.xdc (Line: 4))
+TIMING-18#25 Warning
+Missing input or output delay  
+An output delay is missing on seg[1] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
-XDCC-4#3 Warning
-User Clock constraint overwritten with the same name  
-A new clock constraint create_clock overrides a previous user clock constraint with the same name.
-New: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_controller_test.xdc (Line: 4))
-Previous: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_memory_test_top.xdc (Line: 4))
+TIMING-18#26 Warning
+Missing input or output delay  
+An output delay is missing on seg[2] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
-XDCC-4#4 Warning
-User Clock constraint overwritten with the same name  
-A new clock constraint create_clock overrides a previous user clock constraint with the same name.
-New: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_memory_test_top.xdc (Line: 4))
-Previous: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/lfsr_test_top.xdc (Line: 4))
+TIMING-18#27 Warning
+Missing input or output delay  
+An output delay is missing on seg[3] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
-XDCC-4#5 Warning
-User Clock constraint overwritten with the same name  
-A new clock constraint create_clock overrides a previous user clock constraint with the same name.
-New: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/simon_game_test.xdc (Line: 4))
-Previous: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_controller_test.xdc (Line: 4))
+TIMING-18#28 Warning
+Missing input or output delay  
+An output delay is missing on seg[4] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
-XDCC-4#6 Warning
-User Clock constraint overwritten with the same name  
-A new clock constraint create_clock overrides a previous user clock constraint with the same name.
-New: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/touch_test_top.xdc (Line: 4))
-Previous: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/test_top.xdc (Line: 4))
+TIMING-18#29 Warning
+Missing input or output delay  
+An output delay is missing on seg[5] relative to clock(s) sys_clk_pin
+Related violations: <none>
+
+TIMING-18#30 Warning
+Missing input or output delay  
+An output delay is missing on seg[6] relative to clock(s) sys_clk_pin
 Related violations: <none>
 
 

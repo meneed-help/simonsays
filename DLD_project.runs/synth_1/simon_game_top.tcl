@@ -70,8 +70,6 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 2
-set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35tcpg236-1
 
@@ -104,24 +102,6 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/test_top.xdc
-set_property used_in_implementation false [get_files C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/test_top.xdc]
-
-read_xdc C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/touch_test_top.xdc
-set_property used_in_implementation false [get_files C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/touch_test_top.xdc]
-
-read_xdc C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/four_sensor_test.xdc
-set_property used_in_implementation false [get_files C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/four_sensor_test.xdc]
-
-read_xdc C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/lfsr_test_top.xdc
-set_property used_in_implementation false [get_files C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/lfsr_test_top.xdc]
-
-read_xdc C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_memory_test_top.xdc
-set_property used_in_implementation false [get_files C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_memory_test_top.xdc]
-
-read_xdc C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_controller_test.xdc
-set_property used_in_implementation false [get_files C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/pattern_controller_test.xdc]
-
 read_xdc C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/simon_game_test.xdc
 set_property used_in_implementation false [get_files C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/simon_game_test.xdc]
 

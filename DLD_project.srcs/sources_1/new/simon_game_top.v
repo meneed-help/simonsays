@@ -2,12 +2,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
-// 
 // Create Date: 04/06/2026
 // Module Name: simon_game_top
-// Description: Simon game top module with integrated game timer and human-perceived timing.
-//              Correct pattern: all LEDs ON for 1.5s, then a short pause before next pattern.
-//              Timeout: flashes last LED in the pattern.
+// Description: Simon game top module with:
+//              - Timeout last LED flashing
+//              - Correct pattern display 1.5s
+//              - Delay between patterns
+//              - 4-digit 7-segment display:
+//                   [digits 1-2]: 15-second countdown
+//                   [digits 3-4]: current level (number of LEDs in pattern)
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -15,7 +18,9 @@ module simon_game_top(
     input clk,
     input reset,
     input [8:0] touch,
-    output reg [8:0] led
+    output reg [8:0] led,
+    output reg [3:0] anode,    // 4-digit 7-segment multiplexing
+    output reg [6:0] seg       // 7-segment output (a-g)
 );
 
 // ---------------------------------------------------------
@@ -47,8 +52,8 @@ wire touch_edge = |touch_pulse;
 // ---------------------------------------------------------
 // 2. SYSTEM UTILITIES
 // ---------------------------------------------------------
-wire tick; // slow clock for human-perceived timing
-clock_divider #(50_000_000) clk_div (.clk(clk), .reset(reset), .tick(tick)); // e.g., 1Hz tick
+wire tick; // slow clock for human-perceived timing (~1 Hz)
+clock_divider #(50_000_000) clk_div (.clk(clk), .reset(reset), .tick(tick));
 
 wire [3:0] rand_val;
 reg gen_en;
@@ -56,6 +61,8 @@ lfsr_random rand_gen (.clk(clk), .reset(reset), .enable(gen_en), .rand_out(rand_
 
 // 15-Second Game Timer
 wire timeout_signal;
+reg [3:0] timer_sec; // countdown seconds 15->0
+
 game_timer u_timer (
     .clk(clk),
     .reset(reset),
@@ -107,9 +114,8 @@ reg [3:0] last_pattern_led;
 
 // Counter for correct pattern display using tick (human-perceived)
 reg [3:0] correct_tick_counter; 
-localparam CORRECT_TICKS = 3; // 1 tick = ~0.5s, so 3 ticks = 1.5s for human
+localparam CORRECT_TICKS = 3; // 1.5s (~3 ticks)
 
-// Counter for short pause between patterns
 reg [3:0] correct_wait_counter; 
 localparam CORRECT_WAIT_TICKS = 1; // 1 tick pause
 
@@ -151,6 +157,7 @@ always @(posedge clk) begin
         last_pattern_led <= 0;
         correct_tick_counter <= 0;
         correct_wait_counter <= 0;
+        timer_sec <= 15; // initialize timer
     end else begin
         case (state)
             IDLE: begin
@@ -159,6 +166,7 @@ always @(posedge clk) begin
                 user_read_index <= 0;
                 correct_tick_counter <= 0;
                 correct_wait_counter <= 0;
+                timer_sec <= 15;
                 if (touch_edge) state <= GEN;
             end
 
@@ -181,12 +189,16 @@ always @(posedge clk) begin
                     user_read_index <= 0;
                     last_pattern_led <= mem_out; // store last LED for timeout
                     state <= USER_INPUT;
+                    timer_sec <= 15; // reset timer for user input
                 end
             end
 
             USER_INPUT: begin
                 read_en <= 1;
                 led <= touch_level;
+
+                // decrement timer every tick (1s)
+                if (tick && timer_sec > 0) timer_sec <= timer_sec - 1;
 
                 if (timeout_signal) state <= TIMEOUT;
 
@@ -215,19 +227,19 @@ always @(posedge clk) begin
                 if (tick) correct_tick_counter <= correct_tick_counter + 1;
                 if (correct_tick_counter >= CORRECT_TICKS) begin
                     correct_tick_counter <= 0;
-                    state <= CORRECT_WAIT; // move to short pause before next pattern
+                    state <= CORRECT_WAIT;
                 end
             end
 
             // ---------------------
-            // CORRECT_WAIT: short delay before generating next pattern
+            // CORRECT_WAIT: short delay before next pattern
             // ---------------------
             CORRECT_WAIT: begin
                 led <= 9'b111111111; // keep LEDs ON during pause
                 if (tick) correct_wait_counter <= correct_wait_counter + 1;
                 if (correct_wait_counter >= CORRECT_WAIT_TICKS) begin
                     correct_wait_counter <= 0;
-                    state <= GEN; // go to next pattern
+                    state <= GEN; // next pattern
                 end
             end
 
@@ -244,6 +256,60 @@ always @(posedge clk) begin
             default: state <= IDLE;
         endcase
     end
+end
+
+// ---------------------------------------------------------
+// 6. 7-SEGMENT DISPLAY LOGIC
+// 4 digits: 
+//   digits[1-2] = timer_sec (BCD) 
+//   digits[3-4] = level (number of LEDs in pattern)
+// ---------------------------------------------------------
+reg [3:0] digit_val;
+reg [1:0] digit_index; // 0-3 for 4 digits
+
+reg [15:0] seg_refresh_counter;
+always @(posedge clk) begin
+    if (reset) begin
+        seg_refresh_counter <= 0;
+        digit_index <= 0;
+    end else begin
+        seg_refresh_counter <= seg_refresh_counter + 1;
+        if (seg_refresh_counter == 5000) begin // adjust for visible refresh (~1 kHz)
+            seg_refresh_counter <= 0;
+            digit_index <= digit_index + 1;
+            if (digit_index > 3) digit_index <= 0;
+        end
+    end
+end
+
+always @(*) begin
+    case(digit_index)
+        2'd0: digit_val = timer_sec / 10;         // tens of seconds
+        2'd1: digit_val = timer_sec % 10;         // units of seconds
+        2'd2: digit_val = length / 10;            // tens of level (usually 0)
+        2'd3: digit_val = length % 10;            // units of level
+        default: digit_val = 0;
+    endcase
+end
+
+always @(*) begin
+    anode = 4'b1111;
+    anode[digit_index] = 0; // enable current digit
+
+    // BCD to 7-segment
+    case(digit_val)
+        4'd0: seg = 7'b1000000;
+        4'd1: seg = 7'b1111001;
+        4'd2: seg = 7'b0100100;
+        4'd3: seg = 7'b0110000;
+        4'd4: seg = 7'b0011001;
+        4'd5: seg = 7'b0010010;
+        4'd6: seg = 7'b0000010;
+        4'd7: seg = 7'b1111000;
+        4'd8: seg = 7'b0000000;
+        4'd9: seg = 7'b0010000;
+        default: seg = 7'b1111111;
+    endcase
 end
 
 endmodule

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1775475857">
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1775494638">
   <File Type="PA-TCL" Name="simon_game_top.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="simon_game_top_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="simon_game_top_reports.tcl"/>
   <File Type="RDS-RDS" Name="simon_game_top.vds"/>
   <File Type="RDS-UTIL" Name="simon_game_top_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="simon_game_top_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="simon_game_top.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="simon_game_top_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="simon_game_top_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/clock_divider.v">
@@ -125,36 +122,42 @@
     <Filter Type="Constrs"/>
     <File Path="$PSRCDIR/constrs_1/new/test_top.xdc">
       <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/constrs_1/new/touch_test_top.xdc">
       <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/constrs_1/new/four_sensor_test.xdc">
       <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/constrs_1/new/lfsr_test_top.xdc">
       <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/constrs_1/new/pattern_memory_test_top.xdc">
       <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/constrs_1/new/pattern_controller_test.xdc">
       <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
       </FileInfo>
