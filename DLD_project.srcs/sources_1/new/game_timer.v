@@ -20,7 +20,6 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module game_timer(
     input clk,
     input reset,
@@ -29,18 +28,19 @@ module game_timer(
 );
 
     reg [30:0] count;
-    localparam THRESHOLD = 31'd1_500_000_000;
+    localparam THRESHOLD = 31'd750_000_000; // 15s for 50MHz
 
     always @(posedge clk) begin
         if (reset || !enable) begin
             count <= 0;
             timeout <= 0;
         end else begin
-            if (count < THRESHOLD) begin
+            if (count >= THRESHOLD) begin
+                timeout <= 1;     // ? 1-cycle pulse
+                count <= 0;
+            end else begin
                 count <= count + 1;
                 timeout <= 0;
-            end else begin
-                timeout <= 1; // stays high after 15s
             end
         end
     end
