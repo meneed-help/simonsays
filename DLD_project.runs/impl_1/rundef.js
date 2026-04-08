@@ -25,7 +25,7 @@ eval( EAInclude(ISEJScriptLib) );
 // pre-commands:
 ISETouchFile( "write_bitstream", "begin" );
 ISEStep( "vivado",
-         "-log simon_game_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source simon_game_top.tcl -notrace" );
+         "-log buzzer_driver.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source buzzer_driver.tcl -notrace" );
 
 
 

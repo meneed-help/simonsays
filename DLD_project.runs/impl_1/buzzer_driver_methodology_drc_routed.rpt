@@ -1,0 +1,53 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+| Date         : Wed Apr  8 15:20:55 2026
+| Host         : DESKTOP-GKB5T97 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file buzzer_driver_methodology_drc_routed.rpt -pb buzzer_driver_methodology_drc_routed.pb -rpx buzzer_driver_methodology_drc_routed.rpx
+| Design       : buzzer_driver
+| Device       : xc7a35tcpg236-1
+| Speed File   : -1
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 3
++-----------+----------+------------------------------------------------------+------------+
+| Rule      | Severity | Description                                          | Violations |
++-----------+----------+------------------------------------------------------+------------+
+| TIMING-18 | Warning  | Missing input or output delay                        | 2          |
+| XDCC-4    | Warning  | User Clock constraint overwritten with the same name | 1          |
++-----------+----------+------------------------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on enable relative to clock(s) sys_clk_pin
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An output delay is missing on buzzer relative to clock(s) sys_clk_pin
+Related violations: <none>
+
+XDCC-4#1 Warning
+User Clock constraint overwritten with the same name  
+A new clock constraint create_clock overrides a previous user clock constraint with the same name.
+New: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/buzzer_drive.xdc (Line: 4))
+Previous: create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk] (Source: C:/Users/TTKT/Downloads/DLD_project/DLD_project/DLD_project.srcs/constrs_1/new/simon_game_test.xdc (Line: 4))
+Related violations: <none>
+
+

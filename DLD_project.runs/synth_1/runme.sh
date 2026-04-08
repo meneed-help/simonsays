@@ -40,4 +40,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log simon_game_top.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source simon_game_top.tcl
+EAStep vivado -log buzzer_driver.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source buzzer_driver.tcl
