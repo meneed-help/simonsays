@@ -20,29 +20,28 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module clock_divider #(
-    parameter COUNT_MAX = 100_000_000   // 1 second at 100 MHz
-)(
+module clock_divider #(parameter MAX_COUNT = 100_000_000)(
     input clk,
     input reset,
     output reg tick
 );
 
-reg [31:0] count;
+    reg [31:0] count = 0;
 
-always @(posedge clk or posedge reset) begin
-    if (reset) begin
-        count <= 0;
-        tick <= 0;
-    end else begin
-        if (count == COUNT_MAX - 1) begin
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
             count <= 0;
-            tick <= 1;   // 1-cycle pulse
-        end else begin
-            count <= count + 1;
             tick <= 0;
+        end else begin
+            if (count == MAX_COUNT - 1) begin
+                count <= 0;
+                tick <= 1;   // 1-second pulse
+            end else begin
+                count <= count + 1;
+                tick <= 0;
+            end
         end
     end
-end
 
 endmodule
+

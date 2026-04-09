@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Simon Game Top Module (UPDATED)
+// Simon Game Top Module
 // Fixes:
 // 1. Timer resets ONLY when entering SHOW (new pattern)
 // 2. Timeout handled properly
@@ -41,17 +41,30 @@ endgenerate
 wire touch_edge = |touch_pulse;
 
 // ---------------------------------------------------------
-// UTILITIES
+// CLOCK (1 SECOND TICK)
 // ---------------------------------------------------------
 wire tick;
-clock_divider #(50_000_000) clk_div (.clk(clk), .reset(reset), .tick(tick));
-
-wire [3:0] rand_val;
-reg gen_en;
-lfsr_random rand_gen (.clk(clk), .reset(reset), .enable(gen_en), .rand_out(rand_val));
+clock_divider #(100_000_000) clk_div (
+    .clk(clk),
+    .reset(reset),
+    .tick(tick)
+);
 
 // ---------------------------------------------------------
-// TIMER + LATCH
+// RANDOM
+// ---------------------------------------------------------
+wire [3:0] rand_val;
+reg gen_en;
+
+lfsr_random rand_gen (
+    .clk(clk),
+    .reset(reset),
+    .enable(gen_en),
+    .rand_out(rand_val)
+);
+
+// ---------------------------------------------------------
+// TIMER
 // ---------------------------------------------------------
 wire timeout_signal;
 reg timeout_latched;
@@ -61,10 +74,10 @@ game_timer u_timer (
     .clk(clk),
     .reset(reset),
     .enable(state == USER_INPUT),
+    .tick(tick),
     .timeout(timeout_signal)
 );
 
-// latch timeout pulse
 always @(posedge clk) begin
     if (reset || state != USER_INPUT)
         timeout_latched <= 0;
@@ -73,12 +86,14 @@ always @(posedge clk) begin
 end
 
 // ---------------------------------------------------------
-// FLASH LOGIC
+// FLASH (TIMEOUT BLINK)
 // ---------------------------------------------------------
 reg flash_state;
 always @(posedge clk) begin
-    if (reset || state != TIMEOUT) flash_state <= 0;
-    else if (tick) flash_state <= ~flash_state;
+    if (reset || state != TIMEOUT)
+        flash_state <= 0;
+    else if (tick)
+        flash_state <= ~flash_state;
 end
 
 // ---------------------------------------------------------
@@ -94,7 +109,8 @@ wire [3:0] length;
 pattern_memory mem (
     .clk(clk), .reset(reset), .new_value(rand_val),
     .write_en(write_en), .read_en(read_en),
-    .read_index(read_index_mux), .out_value(mem_out), .length(length)
+    .read_index(read_index_mux),
+    .out_value(mem_out), .length(length)
 );
 
 reg start_show;
@@ -102,8 +118,10 @@ wire done_show;
 
 pattern_controller pc (
     .clk(clk), .reset(reset), .start(start_show), .tick(tick),
-    .length(length), .mem_value(mem_out), .read_index(pc_read_index),
-    .led(), .done(done_show)
+    .length(length), .mem_value(mem_out),
+    .read_index(pc_read_index),
+    .led(), 
+    .done(done_show)
 );
 
 // ---------------------------------------------------------
@@ -113,7 +131,6 @@ reg [3:0] state, prev_state;
 reg [3:0] user_index, user_input;
 reg [3:0] last_pattern_led;
 
-// timing
 reg [3:0] correct_tick_counter, correct_wait_counter;
 localparam CORRECT_TICKS = 3;
 localparam CORRECT_WAIT_TICKS = 1;
@@ -136,10 +153,11 @@ always @(*) begin
     endcase
 end
 
-// read mux
 always @(*) begin
-    if (state == SHOW) read_index_mux = pc_read_index;
-    else read_index_mux = user_read_index;
+    if (state == SHOW)
+        read_index_mux = pc_read_index;
+    else
+        read_index_mux = user_read_index;
 end
 
 // ---------------------------------------------------------
@@ -153,10 +171,15 @@ always @(posedge clk) begin
         timer_sec <= 15;
         user_index <= 0;
         user_read_index <= 0;
+
+        gen_en <= 0;
+        write_en <= 0;
+        start_show <= 0;
+        read_en <= 0;
+
     end else begin
         prev_state <= state;
 
-        // ? reset timer only when entering SHOW
         if (prev_state != SHOW && state == SHOW)
             timer_sec <= 15;
 
@@ -188,7 +211,6 @@ always @(posedge clk) begin
                 end
             end
 
-            // ? FIXED LAST LED CAPTURE
             GET_LAST: begin
                 last_pattern_led <= mem_out;
                 user_index <= 0;
@@ -261,7 +283,7 @@ always @(posedge clk) begin
 end
 
 // ---------------------------------------------------------
-// 7-SEGMENT
+// 7-SEGMENT DISPLAY
 // ---------------------------------------------------------
 reg [3:0] digit_val;
 reg [1:0] digit_index;

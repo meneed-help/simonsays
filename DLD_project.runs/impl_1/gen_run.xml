@@ -1,92 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1775643566">
-  <File Type="BITSTR-BMM" Name="buzzer_driver_bd.bmm"/>
-  <File Type="OPT-METHODOLOGY-DRC" Name="buzzer_driver_methodology_drc_opted.rpt"/>
-  <File Type="INIT-TIMING" Name="buzzer_driver_timing_summary_init.rpt"/>
-  <File Type="ROUTE-PWR" Name="buzzer_driver_power_routed.rpt"/>
-  <File Type="PA-TCL" Name="buzzer_driver.tcl"/>
-  <File Type="OPT-TIMING" Name="buzzer_driver_timing_summary_opted.rpt"/>
-  <File Type="OPT-DCP" Name="buzzer_driver_opt.dcp"/>
-  <File Type="ROUTE-PWR-SUM" Name="buzzer_driver_power_summary_routed.pb"/>
-  <File Type="REPORTS-TCL" Name="buzzer_driver_reports.tcl"/>
-  <File Type="OPT-DRC" Name="buzzer_driver_drc_opted.rpt"/>
-  <File Type="OPT-HWDEF" Name="buzzer_driver.hwdef"/>
-  <File Type="PWROPT-DCP" Name="buzzer_driver_pwropt.dcp"/>
-  <File Type="PWROPT-DRC" Name="buzzer_driver_drc_pwropted.rpt"/>
-  <File Type="PWROPT-TIMING" Name="buzzer_driver_timing_summary_pwropted.rpt"/>
-  <File Type="PLACE-DCP" Name="buzzer_driver_placed.dcp"/>
-  <File Type="PLACE-IO" Name="buzzer_driver_io_placed.rpt"/>
-  <File Type="PLACE-CLK" Name="buzzer_driver_clock_utilization_placed.rpt"/>
-  <File Type="PLACE-UTIL" Name="buzzer_driver_utilization_placed.rpt"/>
-  <File Type="PLACE-UTIL-PB" Name="buzzer_driver_utilization_placed.pb"/>
-  <File Type="PLACE-CTRL" Name="buzzer_driver_control_sets_placed.rpt"/>
-  <File Type="PLACE-SIMILARITY" Name="buzzer_driver_incremental_reuse_placed.rpt"/>
-  <File Type="PLACE-PRE-SIMILARITY" Name="buzzer_driver_incremental_reuse_pre_placed.rpt"/>
-  <File Type="PLACE-TIMING" Name="buzzer_driver_timing_summary_placed.rpt"/>
-  <File Type="POSTPLACE-PWROPT-DCP" Name="buzzer_driver_postplace_pwropt.dcp"/>
-  <File Type="BG-BIN" Name="buzzer_driver.bin"/>
-  <File Type="POSTPLACE-PWROPT-TIMING" Name="buzzer_driver_timing_summary_postplace_pwropted.rpt"/>
-  <File Type="PHYSOPT-DCP" Name="buzzer_driver_physopt.dcp"/>
-  <File Type="PHYSOPT-DRC" Name="buzzer_driver_drc_physopted.rpt"/>
-  <File Type="BITSTR-MSK" Name="buzzer_driver.msk"/>
-  <File Type="PHYSOPT-TIMING" Name="buzzer_driver_timing_summary_physopted.rpt"/>
-  <File Type="ROUTE-ERROR-DCP" Name="buzzer_driver_routed_error.dcp"/>
-  <File Type="ROUTE-DCP" Name="buzzer_driver_routed.dcp"/>
-  <File Type="ROUTE-BLACKBOX-DCP" Name="buzzer_driver_routed_bb.dcp"/>
-  <File Type="ROUTE-DRC" Name="buzzer_driver_drc_routed.rpt"/>
-  <File Type="ROUTE-DRC-PB" Name="buzzer_driver_drc_routed.pb"/>
-  <File Type="ROUTE-DRC-RPX" Name="buzzer_driver_drc_routed.rpx"/>
-  <File Type="BITSTR-MMI" Name="buzzer_driver.mmi"/>
-  <File Type="ROUTE-METHODOLOGY-DRC" Name="buzzer_driver_methodology_drc_routed.rpt"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="buzzer_driver_methodology_drc_routed.rpx"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="buzzer_driver_methodology_drc_routed.pb"/>
-  <File Type="ROUTE-PWR-RPX" Name="buzzer_driver_power_routed.rpx"/>
-  <File Type="ROUTE-STATUS" Name="buzzer_driver_route_status.rpt"/>
-  <File Type="ROUTE-STATUS-PB" Name="buzzer_driver_route_status.pb"/>
-  <File Type="ROUTE-TIMINGSUMMARY" Name="buzzer_driver_timing_summary_routed.rpt"/>
-  <File Type="ROUTE-TIMING-PB" Name="buzzer_driver_timing_summary_routed.pb"/>
-  <File Type="ROUTE-TIMING-RPX" Name="buzzer_driver_timing_summary_routed.rpx"/>
-  <File Type="ROUTE-SIMILARITY" Name="buzzer_driver_incremental_reuse_routed.rpt"/>
-  <File Type="ROUTE-CLK" Name="buzzer_driver_clock_utilization_routed.rpt"/>
-  <File Type="ROUTE-BUS-SKEW" Name="buzzer_driver_bus_skew_routed.rpt"/>
-  <File Type="ROUTE-BUS-SKEW-PB" Name="buzzer_driver_bus_skew_routed.pb"/>
-  <File Type="ROUTE-BUS-SKEW-RPX" Name="buzzer_driver_bus_skew_routed.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-DCP" Name="buzzer_driver_postroute_physopt.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="buzzer_driver_postroute_physopt_bb.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="buzzer_driver_timing_summary_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="buzzer_driver_timing_summary_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="buzzer_driver_timing_summary_postroute_physopted.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="buzzer_driver_bus_skew_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="buzzer_driver_bus_skew_postroute_physopted.pb"/>
-  <File Type="BG-BIT" Name="buzzer_driver.bit"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="buzzer_driver_bus_skew_postroute_physopted.rpx"/>
-  <File Type="BITSTR-RBT" Name="buzzer_driver.rbt"/>
-  <File Type="BITSTR-NKY" Name="buzzer_driver.nky"/>
-  <File Type="PDI-FILE" Name="buzzer_driver.pdi"/>
-  <File Type="RCFI_FILE" Name="buzzer_driver.rcfi"/>
-  <File Type="CFI_FILE" Name="buzzer_driver.cfi"/>
-  <File Type="RNPI_FILE" Name="buzzer_driver.rnpi"/>
-  <File Type="NPI_FILE" Name="buzzer_driver.npi"/>
-  <File Type="RBD_FILE" Name="buzzer_driver.rbd"/>
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1775706496">
+  <File Type="BITSTR-BMM" Name="simon_game_top_bd.bmm"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="simon_game_top_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="simon_game_top_timing_summary_init.rpt"/>
+  <File Type="ROUTE-PWR" Name="simon_game_top_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="simon_game_top.tcl"/>
+  <File Type="OPT-TIMING" Name="simon_game_top_timing_summary_opted.rpt"/>
+  <File Type="OPT-DCP" Name="simon_game_top_opt.dcp"/>
+  <File Type="ROUTE-PWR-SUM" Name="simon_game_top_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="simon_game_top_reports.tcl"/>
+  <File Type="OPT-DRC" Name="simon_game_top_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="simon_game_top.hwdef"/>
+  <File Type="PWROPT-DCP" Name="simon_game_top_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="simon_game_top_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="simon_game_top_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="simon_game_top_placed.dcp"/>
+  <File Type="PLACE-IO" Name="simon_game_top_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="simon_game_top_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="simon_game_top_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="simon_game_top_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="simon_game_top_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="simon_game_top_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="simon_game_top_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="simon_game_top_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="simon_game_top_postplace_pwropt.dcp"/>
+  <File Type="BG-BIN" Name="simon_game_top.bin"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="simon_game_top_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="simon_game_top_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="simon_game_top_drc_physopted.rpt"/>
+  <File Type="BITSTR-MSK" Name="simon_game_top.msk"/>
+  <File Type="PHYSOPT-TIMING" Name="simon_game_top_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="simon_game_top_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="simon_game_top_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="simon_game_top_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="simon_game_top_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="simon_game_top_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="simon_game_top_drc_routed.rpx"/>
+  <File Type="BITSTR-MMI" Name="simon_game_top.mmi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="simon_game_top_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="simon_game_top_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="simon_game_top_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="simon_game_top_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="simon_game_top_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="simon_game_top_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="simon_game_top_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="simon_game_top_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="simon_game_top_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="simon_game_top_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="simon_game_top_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="simon_game_top_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="simon_game_top_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="simon_game_top_bus_skew_routed.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="simon_game_top_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="simon_game_top_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="simon_game_top_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="simon_game_top_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="simon_game_top_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="simon_game_top_bus_skew_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="simon_game_top_bus_skew_postroute_physopted.pb"/>
+  <File Type="BG-BIT" Name="simon_game_top.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="simon_game_top_bus_skew_postroute_physopted.rpx"/>
+  <File Type="BITSTR-RBT" Name="simon_game_top.rbt"/>
+  <File Type="BITSTR-NKY" Name="simon_game_top.nky"/>
+  <File Type="PDI-FILE" Name="simon_game_top.pdi"/>
+  <File Type="RCFI_FILE" Name="simon_game_top.rcfi"/>
+  <File Type="CFI_FILE" Name="simon_game_top.cfi"/>
+  <File Type="RNPI_FILE" Name="simon_game_top.rnpi"/>
+  <File Type="NPI_FILE" Name="simon_game_top.npi"/>
+  <File Type="RBD_FILE" Name="simon_game_top.rbd"/>
   <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
-  <File Type="BITSTR-LTX" Name="buzzer_driver.ltx"/>
-  <File Type="BITSTR-SYSDEF" Name="buzzer_driver.sysdef"/>
-  <File Type="BG-BGN" Name="buzzer_driver.bgn"/>
-  <File Type="BG-DRC" Name="buzzer_driver.drc"/>
-  <File Type="RDI-RDI" Name="buzzer_driver.vdi"/>
+  <File Type="BITSTR-LTX" Name="simon_game_top.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="simon_game_top.sysdef"/>
+  <File Type="BG-BGN" Name="simon_game_top.bgn"/>
+  <File Type="BG-DRC" Name="simon_game_top.drc"/>
+  <File Type="RDI-RDI" Name="simon_game_top.vdi"/>
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PSRCDIR/sources_1/new/buzzer_driver.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/clock_divider.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -94,7 +86,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/debouncer.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -102,7 +93,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/game_timer.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -110,7 +100,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/lfsr_random.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -118,7 +107,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/pattern_controller.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -126,13 +114,19 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/pattern_memory.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/new/simon_game_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/buzzer_driver.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -198,7 +192,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="buzzer_driver"/>
+      <Option Name="TopModule" Val="simon_game_top"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
@@ -258,7 +252,7 @@
       </FileInfo>
     </File>
     <Config>
-      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/buzzer_drive.xdc"/>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/simon_game_test.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>

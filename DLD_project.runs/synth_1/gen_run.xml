@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1775643479">
-  <File Type="PA-TCL" Name="buzzer_driver.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="buzzer_driver_drc_synth.rpt"/>
-  <File Type="REPORTS-TCL" Name="buzzer_driver_reports.tcl"/>
-  <File Type="RDS-RDS" Name="buzzer_driver.vds"/>
-  <File Type="RDS-UTIL" Name="buzzer_driver_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="buzzer_driver_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="buzzer_driver.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="buzzer_driver_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="buzzer_driver_timing_summary_synth.pb"/>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1775706400">
+  <File Type="PA-TCL" Name="simon_game_top.tcl"/>
+  <File Type="RDS-PROPCONSTRS" Name="simon_game_top_drc_synth.rpt"/>
+  <File Type="REPORTS-TCL" Name="simon_game_top_reports.tcl"/>
+  <File Type="RDS-RDS" Name="simon_game_top.vds"/>
+  <File Type="RDS-UTIL" Name="simon_game_top_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="simon_game_top_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="simon_game_top.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="simon_game_top_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="simon_game_top_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PSRCDIR/sources_1/new/buzzer_driver.v">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/clock_divider.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -28,7 +20,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/debouncer.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -36,7 +27,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/game_timer.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -44,7 +34,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/lfsr_random.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -52,7 +41,6 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/pattern_controller.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -60,13 +48,19 @@
     </File>
     <File Path="$PSRCDIR/sources_1/new/pattern_memory.v">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/new/simon_game_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/buzzer_driver.v">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -132,7 +126,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="buzzer_driver"/>
+      <Option Name="TopModule" Val="simon_game_top"/>
     </Config>
   </FileSet>
   <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
@@ -192,7 +186,7 @@
       </FileInfo>
     </File>
     <Config>
-      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/buzzer_drive.xdc"/>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/simon_game_test.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>

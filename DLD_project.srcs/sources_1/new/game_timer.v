@@ -24,22 +24,26 @@ module game_timer(
     input clk,
     input reset,
     input enable,
+    input tick,         //1 second tick to count to 15
     output reg timeout
 );
 
-    reg [30:0] count;
-    localparam THRESHOLD = 31'd750_000_000; // 15s for 50MHz
+    reg [4:0] seconds;
 
     always @(posedge clk) begin
         if (reset || !enable) begin
-            count <= 0;
+            seconds <= 0;
             timeout <= 0;
         end else begin
-            if (count >= THRESHOLD) begin
-                timeout <= 1;     // ? 1-cycle pulse
-                count <= 0;
+            if (tick) begin
+                if (seconds >= 15) begin
+                    timeout <= 1;
+                    seconds <= 0;
+                end else begin
+                    seconds <= seconds + 1;
+                    timeout <= 0;
+                end
             end else begin
-                count <= count + 1;
                 timeout <= 0;
             end
         end
