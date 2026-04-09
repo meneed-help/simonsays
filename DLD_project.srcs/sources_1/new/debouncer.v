@@ -22,8 +22,8 @@
 module debouncer (
     input clk,
     input btn_in,
-    output reg btn_level, // The "Is it held down?" signal
-    output reg btn_pulse  // The "Did it just get pressed?" signal
+    output reg btn_level, // Is it held down signal
+    output reg btn_pulse  // Did it just get pressed signal
 );
 
 reg [21:0] count;
@@ -43,6 +43,6 @@ always @(posedge clk) begin
 
     state_prev <= state;
     btn_level <= state;
-    btn_pulse <= state & ~state_prev; // Creates that 1-clock-cycle pulse
+    btn_pulse <= state & ~state_prev; // Creates 1 clock-cycle pulse
 end
 endmodule

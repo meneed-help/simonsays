@@ -35,7 +35,7 @@ module clock_divider #(parameter MAX_COUNT = 100_000_000)(
         end else begin
             if (count == MAX_COUNT - 1) begin
                 count <= 0;
-                tick <= 1;   // 1-second pulse
+                tick <= 1;   // 1second pulse
             end else begin
                 count <= count + 1;
                 tick <= 0;

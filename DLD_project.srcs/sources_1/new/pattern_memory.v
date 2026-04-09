@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module pattern_memory #(
-    parameter MAX_LEN = 32      // Increased length for longer sequences
+    parameter MAX_LEN = 32   
 )(
     input clk,
     input reset,
@@ -29,7 +29,7 @@ module pattern_memory #(
     input write_en,
 
     input read_en,
-    input [4:0] read_index,     // increased to 5 bits for MAX_LEN 32
+    input [4:0] read_index,     // 5 bits for MAX_LEN 32
 
     output reg [3:0] out_value,
     output reg [4:0] length      // 5 bits for max 32

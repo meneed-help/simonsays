@@ -1,13 +1,13 @@
-## ================= CLOCK =================
+## CLOCK 
 set_property PACKAGE_PIN W5 [get_ports clk]
 set_property IOSTANDARD LVCMOS33 [get_ports clk]
 create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk]
 
-## ================= RESET =================
+## RESET
 set_property PACKAGE_PIN U18 [get_ports reset]
 set_property IOSTANDARD LVCMOS33 [get_ports reset]
 
-## ================= TOUCH INPUTS =================
+## TOUCH INPUTS
 
 set_property PACKAGE_PIN J1 [get_ports {touch[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {touch[0]}]
@@ -36,7 +36,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {touch[7]}]
 set_property PACKAGE_PIN K17 [get_ports {touch[8]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {touch[8]}]
 
-## ================= LED OUTPUTS =================
+## LED OUTPUTS
 
 set_property PACKAGE_PIN L2 [get_ports {led[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
@@ -65,6 +65,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[7]}]
 set_property PACKAGE_PIN L17 [get_ports {led[8]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[8]}]
 
+## SEVEN SEGMENT PINS
 #a
 set_property PACKAGE_PIN W7 [get_ports {seg[0]}]  
 set_property IOSTANDARD LVCMOS33 [get_ports {seg[0]}]

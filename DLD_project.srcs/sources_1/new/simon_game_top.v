@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Simon Game Top Module
-// Fixes:
-// 1. Timer resets ONLY when entering SHOW (new pattern)
+// Game states, user inputs, and keeping track of the timer
+// 1. Timer resets ONLY when entering SHOW state (new pattern)
 // 2. Timeout handled properly
 // 3. Removed incorrect timer resets
 // 4. Fixed 7-seg digit index overflow
 //////////////////////////////////////////////////////////////////////////////////
-
+ 
 module simon_game_top(
     input clk,
     input reset,
@@ -17,13 +17,12 @@ module simon_game_top(
     output reg [6:0] seg
 );
 
-// ---------------------------------------------------------
+// Stages of game 
+// generating a new pattern, showing it, or waiting for the player to press buttons.
 parameter IDLE=0, GEN=1, SHOW=2, USER_INPUT=3, WAIT_RELEASE=4,
           CORRECT=5, CORRECT_WAIT=6, WRONG=7, TIMEOUT=8, GET_LAST=9;
 
-// ---------------------------------------------------------
-// DEBOUNCERS
-// ---------------------------------------------------------
+// debouncer modules for all 9 touch sensors 
 wire [8:0] touch_pulse, touch_level;
 
 genvar i;
@@ -40,9 +39,9 @@ endgenerate
 
 wire touch_edge = |touch_pulse;
 
-// ---------------------------------------------------------
-// CLOCK (1 SECOND TICK)
-// ---------------------------------------------------------
+
+// tick for timing
+// slows the board clock (100Mhz) to a 1 second pulse.
 wire tick;
 clock_divider #(100_000_000) clk_div (
     .clk(clk),
@@ -50,9 +49,8 @@ clock_divider #(100_000_000) clk_div (
     .tick(tick)
 );
 
-// ---------------------------------------------------------
-// RANDOM
-// ---------------------------------------------------------
+
+// the random numbers to pick which LED lights up next through lfsr
 wire [3:0] rand_val;
 reg gen_en;
 
@@ -63,9 +61,8 @@ lfsr_random rand_gen (
     .rand_out(rand_val)
 );
 
-// ---------------------------------------------------------
-// TIMER
-// ---------------------------------------------------------
+
+// Timer of 15 seconds 
 wire timeout_signal;
 reg timeout_latched;
 reg [3:0] timer_sec;
@@ -78,6 +75,9 @@ game_timer u_timer (
     .timeout(timeout_signal)
 );
 
+// latch the timeout signal 
+// if the game state happens to change right as time runs out
+// make sure the time out state does not interfere with the next round
 always @(posedge clk) begin
     if (reset || state != USER_INPUT)
         timeout_latched <= 0;
@@ -85,9 +85,9 @@ always @(posedge clk) begin
         timeout_latched <= 1;
 end
 
-// ---------------------------------------------------------
-// FLASH (TIMEOUT BLINK)
-// ---------------------------------------------------------
+
+// flip-flop for led blink 
+// when the player runs out of time
 reg flash_state;
 always @(posedge clk) begin
     if (reset || state != TIMEOUT)
@@ -96,9 +96,9 @@ always @(posedge clk) begin
         flash_state <= ~flash_state;
 end
 
-// ---------------------------------------------------------
-// MEMORY
-// ---------------------------------------------------------
+
+// remember the sequence of lights 
+// store the pattern, and the pattern controller to play back the sequence 
 reg write_en, read_en;
 reg [3:0] user_read_index;
 wire [3:0] pc_read_index;
@@ -124,9 +124,10 @@ pattern_controller pc (
     .done(done_show)
 );
 
-// ---------------------------------------------------------
-// FSM
-// ---------------------------------------------------------
+
+// track level 
+// how far along the user is in guessing the current sequence, 
+// counter to hold the sequenece of led.
 reg [3:0] state, prev_state;
 reg [3:0] user_index, user_input;
 reg [3:0] last_pattern_led;
@@ -135,9 +136,8 @@ reg [3:0] correct_tick_counter, correct_wait_counter;
 localparam CORRECT_TICKS = 3;
 localparam CORRECT_WAIT_TICKS = 1;
 
-// ---------------------------------------------------------
-// INPUT MAP
-// ---------------------------------------------------------
+
+// Translating the 9 individual touch sensor wires into a single numeric value. 
 always @(*) begin
     case (touch_level)
         9'b000000001: user_input = 0;
@@ -153,6 +153,8 @@ always @(*) begin
     endcase
 end
 
+// This decides whether the game board or the user is currently reading from the memory.
+// If the game is showing the pattern, use the PC's index. Otherwise, use the player's index.
 always @(*) begin
     if (state == SHOW)
         read_index_mux = pc_read_index;
@@ -160,9 +162,10 @@ always @(*) begin
         read_index_mux = user_read_index;
 end
 
-// ---------------------------------------------------------
-// MAIN FSM
-// ---------------------------------------------------------
+
+// run the entire game logic. 
+// It handles resetting, moving from one state to the next, 
+// checking the user's answers, and updating the LEDs.
 always @(posedge clk) begin
     if (reset) begin
         state <= IDLE;
@@ -282,9 +285,10 @@ always @(posedge clk) begin
     end
 end
 
-// ---------------------------------------------------------
-// 7-SEGMENT DISPLAY
-// ---------------------------------------------------------
+
+// multiplexing to show the remaining time 
+// on the first two digits and the current score (pattern length) on the last two. 
+// It cycles through the digits super fast so it looks completely solid to the human eye.
 reg [3:0] digit_val;
 reg [1:0] digit_index;
 reg [15:0] refresh_counter;
