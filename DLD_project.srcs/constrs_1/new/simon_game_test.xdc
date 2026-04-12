@@ -8,7 +8,6 @@ set_property PACKAGE_PIN U18 [get_ports reset]
 set_property IOSTANDARD LVCMOS33 [get_ports reset]
 
 ## TOUCH INPUTS
-
 set_property PACKAGE_PIN J1 [get_ports {touch[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {touch[0]}]
 
@@ -36,8 +35,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {touch[7]}]
 set_property PACKAGE_PIN K17 [get_ports {touch[8]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {touch[8]}]
 
-## LED OUTPUTS
-
+## TOUCH LED OUTPUTS
 set_property PACKAGE_PIN L2 [get_ports {led[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
 
@@ -64,6 +62,56 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[7]}]
 
 set_property PACKAGE_PIN L17 [get_ports {led[8]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[8]}]
+
+## FPGA BOARD LEDs (Level Tracking)
+# Mapping from Left to Right (Starting above Switch R2)
+set_property PACKAGE_PIN L1 [get_ports {led_board[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[0]}]
+
+set_property PACKAGE_PIN P1 [get_ports {led_board[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[1]}]
+
+set_property PACKAGE_PIN N3 [get_ports {led_board[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[2]}]
+
+set_property PACKAGE_PIN P3 [get_ports {led_board[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[3]}]
+
+set_property PACKAGE_PIN U3 [get_ports {led_board[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[4]}]
+
+set_property PACKAGE_PIN W3 [get_ports {led_board[5]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[5]}]
+
+set_property PACKAGE_PIN V3 [get_ports {led_board[6]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[6]}]
+
+set_property PACKAGE_PIN V13 [get_ports {led_board[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[7]}]
+
+set_property PACKAGE_PIN V14 [get_ports {led_board[8]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[8]}]
+
+set_property PACKAGE_PIN U14 [get_ports {led_board[9]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[9]}]
+
+set_property PACKAGE_PIN U15 [get_ports {led_board[10]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[10]}]
+
+set_property PACKAGE_PIN W18 [get_ports {led_board[11]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[11]}]
+
+set_property PACKAGE_PIN V19 [get_ports {led_board[12]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[12]}]
+
+set_property PACKAGE_PIN U19 [get_ports {led_board[13]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[13]}]
+
+set_property PACKAGE_PIN E19 [get_ports {led_board[14]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[14]}]
+
+set_property PACKAGE_PIN U16 [get_ports {led_board[15]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {led_board[15]}]
 
 ## SEVEN SEGMENT PINS
 #a
@@ -93,8 +141,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports {seg[5]}]
 #g
 set_property PACKAGE_PIN U7 [get_ports {seg[6]}]  
 set_property IOSTANDARD LVCMOS33 [get_ports {seg[6]}]
-
-
 
 set_property PACKAGE_PIN U2 [get_ports {anode[1]}] 
 set_property IOSTANDARD LVCMOS33 [get_ports {anode[1]}]

@@ -1,18 +1,18 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Simon Game Top Module
-// Game states, user inputs, and keeping track of the timer
 // 1. Timer resets ONLY when entering SHOW state (new pattern)
 // 2. Timeout handled properly
-// 3. Removed incorrect timer resets
-// 4. Fixed 7-seg digit index overflow
+// 3. Score (length) shown on 7-seg updates after correct pattern
+// 4. Level tracking on 16 board LEDs (R2, T1, etc.) wrapping every 16 levels
 //////////////////////////////////////////////////////////////////////////////////
- 
+
 module simon_game_top(
     input clk,
     input reset,
     input [8:0] touch,
-    output reg [8:0] led,
+    output reg [8:0] led,          // LEDs assigned to touch sensors
+    output reg [15:0] led_board,   // The 16 physical LEDs on the FPGA board
     output reg [3:0] anode,
     output reg [6:0] seg
 );
@@ -153,6 +153,18 @@ always @(*) begin
     endcase
 end
 
+// Logic for the 16 board LEDs to represent levels (thermometer style)
+// It fills up to 16, then Level 17 starts again from the 1st LED (R2).
+integer k;
+always @(*) begin
+    led_board = 16'b0;
+    // (length-1) % 16 determines how many LEDs are lit in the current "page" of 16 levels
+    for (k = 0; k < 16; k = k + 1) begin
+        if (k <= ((length - 1) % 16))
+            led_board[k] = 1'b1;
+    end
+end
+
 // This decides whether the game board or the user is currently reading from the memory.
 // If the game is showing the pattern, use the PC's index. Otherwise, use the player's index.
 always @(*) begin
@@ -248,7 +260,7 @@ always @(posedge clk) begin
             end
 
             CORRECT: begin
-                led <= 9'b111111111;
+                led <= 9'b111111111; // All touch LEDs light up when correct
                 if (tick) correct_tick_counter <= correct_tick_counter + 1;
                 if (correct_tick_counter >= CORRECT_TICKS) begin
                     correct_tick_counter <= 0;
@@ -305,8 +317,8 @@ always @(*) begin
     case(digit_index)
         0: digit_val = timer_sec / 10;
         1: digit_val = timer_sec % 10;
-        2: digit_val = length / 10;
-        3: digit_val = length % 10;
+        2: digit_val = length / 10;    // Level/Score Tens digit
+        3: digit_val = length % 10;    // Level/Score Ones digit
     endcase
 end
 
