@@ -1,10 +1,11 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Simon Game Top Module
-// 1. Timer resets ONLY when entering SHOW state (new pattern)
-// 2. Timeout handled properly
-// 3. Score (length) shown on 7-seg updates after correct pattern
-// 4. Level tracking on 16 board LEDs (R2, T1, etc.) wrapping every 16 levels
+// 1. Timer resets ONLY when entering SHOW state
+// 2. Score (7-seg) updates ONLY after the "CORRECT" flash animation
+// 3. Board LEDs (Level) off at IDLE, but light up immediately during SHOW
+// 4. Pattern display speed set to 0.75s per LED (slower by 0.25s)
+// 5. Correct flash duration shortened to exactly 2 seconds
 //////////////////////////////////////////////////////////////////////////////////
 
 module simon_game_top(
@@ -18,66 +19,54 @@ module simon_game_top(
 );
 
 // Stages of game 
-// generating a new pattern, showing it, or waiting for the player to press buttons.
 parameter IDLE=0, GEN=1, SHOW=2, USER_INPUT=3, WAIT_RELEASE=4,
           CORRECT=5, CORRECT_WAIT=6, WRONG=7, TIMEOUT=8, GET_LAST=9;
 
 // debouncer modules for all 9 touch sensors 
 wire [8:0] touch_pulse, touch_level;
-
 genvar i;
 generate
     for (i = 0; i < 9; i = i + 1) begin : debounce_block
         debouncer db (
-            .clk(clk),
-            .btn_in(touch[i]),
-            .btn_pulse(touch_pulse[i]),
-            .btn_level(touch_level[i])
+            .clk(clk), .btn_in(touch[i]),
+            .btn_pulse(touch_pulse[i]), .btn_level(touch_level[i])
         );
     end
 endgenerate
 
 wire touch_edge = |touch_pulse;
 
+// clock dividers
+// tick_1s for the 15-second game timer and 2s correct animation
+// tick_075s for pattern display (100MHz / 75M = 0.75s)
+wire tick_1s, tick_075s;
 
-// tick for timing
-// slows the board clock (100Mhz) to a 1 second pulse.
-wire tick;
-clock_divider #(100_000_000) clk_div (
-    .clk(clk),
-    .reset(reset),
-    .tick(tick)
+clock_divider #(100_000_000) clk_div_1s (
+    .clk(clk), .reset(reset), .tick(tick_1s)
 );
 
+clock_divider #(75_000_000) clk_div_075s (
+    .clk(clk), .reset(reset), .tick(tick_075s)
+);
 
-// the random numbers to pick which LED lights up next through lfsr
+// random sequence generator
 wire [3:0] rand_val;
 reg gen_en;
-
 lfsr_random rand_gen (
-    .clk(clk),
-    .reset(reset),
-    .enable(gen_en),
-    .rand_out(rand_val)
+    .clk(clk), .reset(reset), .enable(gen_en), .rand_out(rand_val)
 );
 
-
-// Timer of 15 seconds 
+// 15 second timer (Uses 1 second ticks)
 wire timeout_signal;
 reg timeout_latched;
 reg [3:0] timer_sec;
 
 game_timer u_timer (
-    .clk(clk),
-    .reset(reset),
+    .clk(clk), .reset(reset),
     .enable(state == USER_INPUT),
-    .tick(tick),
-    .timeout(timeout_signal)
+    .tick(tick_1s), .timeout(timeout_signal)
 );
 
-// latch the timeout signal 
-// if the game state happens to change right as time runs out
-// make sure the time out state does not interfere with the next round
 always @(posedge clk) begin
     if (reset || state != USER_INPUT)
         timeout_latched <= 0;
@@ -85,20 +74,14 @@ always @(posedge clk) begin
         timeout_latched <= 1;
 end
 
-
-// flip-flop for led blink 
-// when the player runs out of time
+// timeout flash state
 reg flash_state;
 always @(posedge clk) begin
-    if (reset || state != TIMEOUT)
-        flash_state <= 0;
-    else if (tick)
-        flash_state <= ~flash_state;
+    if (reset || state != TIMEOUT) flash_state <= 0;
+    else if (tick_1s) flash_state <= ~flash_state;
 end
 
-
-// remember the sequence of lights 
-// store the pattern, and the pattern controller to play back the sequence 
+// pattern memory and controller
 reg write_en, read_en;
 reg [3:0] user_read_index;
 wire [3:0] pc_read_index;
@@ -115,29 +98,26 @@ pattern_memory mem (
 
 reg start_show;
 wire done_show;
-
 pattern_controller pc (
-    .clk(clk), .reset(reset), .start(start_show), .tick(tick),
+    .clk(clk), .reset(reset), .start(start_show), 
+    .tick(tick_075s), // Pattern speed slowed down to 0.75s
     .length(length), .mem_value(mem_out),
-    .read_index(pc_read_index),
-    .led(), 
-    .done(done_show)
+    .read_index(pc_read_index), .led(), .done(done_show)
 );
 
-
-// track level 
-// how far along the user is in guessing the current sequence, 
-// counter to hold the sequenece of led.
+// FSM and Game Logic
 reg [3:0] state, prev_state;
 reg [3:0] user_index, user_input;
 reg [3:0] last_pattern_led;
+reg [3:0] display_score; 
 
 reg [3:0] correct_tick_counter, correct_wait_counter;
-localparam CORRECT_TICKS = 3;
+
+// CORRECT_TICKS = 2 with 1s clock = Exactly 2 seconds
+localparam CORRECT_TICKS = 2; 
 localparam CORRECT_WAIT_TICKS = 1;
 
-
-// Translating the 9 individual touch sensor wires into a single numeric value. 
+// Touch sensor wire translation
 always @(*) begin
     case (touch_level)
         9'b000000001: user_input = 0;
@@ -153,31 +133,24 @@ always @(*) begin
     endcase
 end
 
-// Logic for the 16 board LEDs to represent levels (thermometer style)
-// It fills up to 16, then Level 17 starts again from the 1st LED (R2).
+// Logic for the 16 board LEDs (Thermometer style)
 integer k;
 always @(*) begin
     led_board = 16'b0;
-    // (length-1) % 16 determines how many LEDs are lit in the current "page" of 16 levels
-    for (k = 0; k < 16; k = k + 1) begin
-        if (k <= ((length - 1) % 16))
-            led_board[k] = 1'b1;
+    if (state != IDLE && length > 0) begin
+        for (k = 0; k < 16; k = k + 1) begin
+            if (k <= ((length - 1) % 16))
+                led_board[k] = 1'b1;
+        end
     end
 end
 
-// This decides whether the game board or the user is currently reading from the memory.
-// If the game is showing the pattern, use the PC's index. Otherwise, use the player's index.
 always @(*) begin
-    if (state == SHOW)
-        read_index_mux = pc_read_index;
-    else
-        read_index_mux = user_read_index;
+    if (state == SHOW) read_index_mux = pc_read_index;
+    else               read_index_mux = user_read_index;
 end
 
-
-// run the entire game logic. 
-// It handles resetting, moving from one state to the next, 
-// checking the user's answers, and updating the LEDs.
+// Main State Machine
 always @(posedge clk) begin
     if (reset) begin
         state <= IDLE;
@@ -186,22 +159,21 @@ always @(posedge clk) begin
         timer_sec <= 15;
         user_index <= 0;
         user_read_index <= 0;
-
+        display_score <= 0;
         gen_en <= 0;
         write_en <= 0;
         start_show <= 0;
         read_en <= 0;
-
+        correct_tick_counter <= 0;
+        correct_wait_counter <= 0;
     end else begin
         prev_state <= state;
-
-        if (prev_state != SHOW && state == SHOW)
-            timer_sec <= 15;
+        if (prev_state != SHOW && state == SHOW) timer_sec <= 15;
 
         case (state)
-
             IDLE: begin
                 led <= 0;
+                display_score <= 0; 
                 if (touch_edge) state <= GEN;
             end
 
@@ -216,9 +188,7 @@ always @(posedge clk) begin
                 write_en <= 0;
                 start_show <= 1;
                 read_en <= 1;
-
                 led <= (9'b1 << mem_out);
-
                 if (done_show) begin
                     start_show <= 0;
                     user_read_index <= length - 1;
@@ -235,13 +205,8 @@ always @(posedge clk) begin
 
             USER_INPUT: begin
                 led <= touch_level;
-
-                if (tick && timer_sec > 0)
-                    timer_sec <= timer_sec - 1;
-
-                if (timeout_latched)
-                    state <= TIMEOUT;
-
+                if (tick_1s && timer_sec > 0) timer_sec <= timer_sec - 1;
+                if (timeout_latched) state <= TIMEOUT;
                 if (touch_edge && !timeout_latched) begin
                     if (user_input == mem_out) begin
                         if (user_index == length - 1)
@@ -260,8 +225,9 @@ always @(posedge clk) begin
             end
 
             CORRECT: begin
-                led <= 9'b111111111; // All touch LEDs light up when correct
-                if (tick) correct_tick_counter <= correct_tick_counter + 1;
+                led <= 9'b111111111;
+                display_score <= length; 
+                if (tick_1s) correct_tick_counter <= correct_tick_counter + 1;
                 if (correct_tick_counter >= CORRECT_TICKS) begin
                     correct_tick_counter <= 0;
                     state <= CORRECT_WAIT;
@@ -270,7 +236,7 @@ always @(posedge clk) begin
 
             CORRECT_WAIT: begin
                 led <= 9'b111111111;
-                if (tick) correct_wait_counter <= correct_wait_counter + 1;
+                if (tick_1s) correct_wait_counter <= correct_wait_counter + 1;
                 if (correct_wait_counter >= CORRECT_WAIT_TICKS) begin
                     correct_wait_counter <= 0;
                     state <= GEN;
@@ -278,29 +244,22 @@ always @(posedge clk) begin
             end
 
             WRONG: begin
-                if (tick) led <= ~led;
+                if (tick_1s) led <= ~led;
             end
 
             TIMEOUT: begin
-                if (flash_state)
-                    led <= (9'b1 << last_pattern_led);
-                else
-                    led <= 0;
-
+                if (flash_state) led <= (9'b1 << last_pattern_led);
+                else             led <= 0;
                 if (touch_edge) begin
                     state <= IDLE;
                     timer_sec <= 15;
                 end
             end
-
         endcase
     end
 end
 
-
-// multiplexing to show the remaining time 
-// on the first two digits and the current score (pattern length) on the last two. 
-// It cycles through the digits super fast so it looks completely solid to the human eye.
+// 7-Segment Multiplexing
 reg [3:0] digit_val;
 reg [1:0] digit_index;
 reg [15:0] refresh_counter;
@@ -317,15 +276,14 @@ always @(*) begin
     case(digit_index)
         0: digit_val = timer_sec / 10;
         1: digit_val = timer_sec % 10;
-        2: digit_val = length / 10;    // Level/Score Tens digit
-        3: digit_val = length % 10;    // Level/Score Ones digit
+        2: digit_val = display_score / 10; 
+        3: digit_val = display_score % 10; 
     endcase
 end
 
 always @(*) begin
     anode = 4'b1111;
     anode[digit_index] = 0;
-
     case(digit_val)
         0: seg = 7'b1000000;
         1: seg = 7'b1111001;
